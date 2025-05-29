@@ -1,0 +1,42 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px ;
+  background-color: #f8f9fa;
+  position: sticky;
+  top: 0;
+  z-index: 400;
+  border-bottom: 1px solid lightgray;
+}
+
+/* Logo styling */
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8rem;
+  color: #020c17;
+  font-weight: bold;
+}
+
+.navbar-right{
+    display: flex;
+    justify-content: space-around;
+}
+/* Navigation links container */
+.navbar-right a {
+  text-decoration: none;
+  color: #000;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 10px;
+}
+
+.navbar-right a:hover {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 15%;
+  transition: 0.1s;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/css/login.css" />
+  <title>Login</title>
+</head>
+<body>
+  <div class="logo" id="login">HashIt</div>
+  <h1>Login</h1>
+
+  <% if (messages && messages.length > 0) { %>
+    <ul>
+      <% messages.forEach(m => { %>
+        <li style="color: red;"><%= m %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/login" method="POST">
+    <label>Username: <input type="text" name="username" required /></label><br/>
+    <label>Password: <input type="password" name="password" required /></label><br/>
+    <button type="submit">Log in</button>
+  </form>
+
+  <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+</body>
+</html>

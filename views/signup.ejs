@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signup</title>
+</head>
+<body>
+  <h1>Signup</h1>
+
+  <% if (messages && messages.length > 0) { %>
+    <ul>
+      <% messages.forEach(m => { %>
+        <li style="color: red;"><%= m %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/signup" method="POST">
+    <label>Username: <input type="text" name="username" required /></label><br/>
+    <label>Password: <input type="password" name="password" required /></label><br/>
+    <button type="submit">Sign up</button>
+  </form>
+
+  <p>Already have an account? <a href="/login">Login here</a></p>
+</body>
+</html>

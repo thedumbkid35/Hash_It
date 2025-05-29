@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Post</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .drop-zone {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .drop-zone.dragover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <%- include("partials/header.ejs") %>
+  <h1>Create Post</h1>
+
+  <form action="/posts" method="POST" enctype="multipart/form-data">
+    <label for="title">Enter Title</label>
+    <input type="text" name="title" required />
+
+    <label for="caption">Enter Caption</label>
+    <input type="text" name="caption" />
+
+    <label for="hash">Enter Hashtags</label>
+    <input type="text" name="hash" />
+
+    <div class="drop-zone" id="dropZone">Drag & Drop Image here Or Click to Upload</div>
+    <input type="file" name="image" id="imageInput" hidden />
+
+    <button type="submit">Post</button>
+  </form>
+
+  <script>
+    const dropZone = document.getElementById("dropZone");
+    const imageInput = document.getElementById("imageInput");
+
+    dropZone.addEventListener("click", () => imageInput.click());
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      if (e.dataTransfer.files.length > 0) {
+        imageInput.files = e.dataTransfer.files;
+      }
+    });
+  </script>
+</body>
+</html>

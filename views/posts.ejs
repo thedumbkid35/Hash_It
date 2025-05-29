@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <% if(locals.posts && posts.length>0) { %>
+        <ul>
+           <%  posts.forEach((post) => { %>
+
+              <li><p><strong><%= post.author ? post.author.username : 'Unknown' %></strong></p>
+                <% if (post.image) { %>
+            <img src = "<%=post.image %>" alt = "Post Image" height="200" width="350"/>  
+        <% } %>
+                <h1><%= post.title %></h1>
+
+            <p><%= post.caption %></p>
+        <p><%= post.hash %></p>
+        <form action="/posts/<%= post._id %>/like" method="POST" class="likButtonB">
+  <button type="submit" class="likButton">
+    <span class="material-symbols-outlined">
+favorite
+</span>(<%= post.likes.length %>)
+  </button>
+</form>
+        <form action="/posts/<%=post.id%>?_method=DELETE" method="POST" class="delButtonB"><button>
+<span class="material-symbols-outlined">
+delete
+</span></button>
+        </form>
+        <!-- Display Comments -->
+    <% if (post.comments && post.comments.length > 0) { %>
+      <div class="comments-section">
+        <h4>Comments:</h4>
+        <ul>
+          <% post.comments.forEach(comment => { %>
+            <li>
+              <strong><%= comment.author ? comment.author.username : "Unknown" %>:</strong>
+              <%= comment.content %>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <!-- Add Comment Form -->
+    <form action="/posts/<%= post._id %>/comments" method="POST" class="comment-form">
+      <textarea name="content" rows="2" placeholder="Write a comment..." required></textarea>
+      <button type="submit">Comment</button>
+    </form>
+
+
+              </li>
+    <%  }) %>  
+        </ul>
+    <% } else { %>
+        <h1>No posts yet</h1>
+    <% } %>
+    <!-- Button to go to create page -->
+
+</body>
+</html>
