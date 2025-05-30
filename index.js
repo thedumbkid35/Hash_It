@@ -9,7 +9,7 @@ import session from "express-session";
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import flash from "connect-flash";
-
+import MongoStore from "connect-mongo";
 import Post from "./models/Post.js";
 import User from "./models/User.js";
 import Comment from "./models/Comment.js";
@@ -20,10 +20,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log("✅ Connected to MongoDB"))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB Error:", err));
 
 // Middlewares
@@ -37,8 +34,10 @@ app.set("view engine", "ejs");
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }));
+
 app.use(flash());
 
 // Passport setup
