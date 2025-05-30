@@ -1,12 +1,9 @@
-/* Navbar container */
-body{
-  background-color: black;
-}
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 30px ;
+  padding: 20px;
   background-color: black;
   position: sticky;
   top: 0;
@@ -14,32 +11,36 @@ body{
   border-bottom: 1px solid lightgray;
 }
 
-/* Logo styling */
-.logo {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.8rem;
-  color: white;
-  font-weight: bold;
+.navbar-left,
+.navbar-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-.navbar-right{
-    display: flex;
-    justify-content: space-around;
+.navbar-right {
+  flex-wrap: wrap;
 }
-/* Navigation links container */
+
 .navbar-right a {
-  text-decoration: none;
-  color: white;
-  margin-left: 20px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  padding: 10px;
+  margin: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
 }
 
-.navbar-right a:hover {
-  background-color: black;
-  color: white;
-  padding: 10px;
-  border-radius: 15%;
-  transition: 0.1s;
+@media (min-width: 600px) {
+  .navbar-left,
+  .navbar-right {
+    width: auto;
+    margin: 0;
+  }
+
+  .navbar-right {
+    justify-content: flex-end;
+  }
+
+  .navbar-right a {
+    margin-left: 20px;
+  }
 }
