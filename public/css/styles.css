@@ -198,37 +198,11 @@ textarea{
 
 /* Responsive */
 @media (max-width: 600px) {
-  h1 {
-    font-size: 1.5rem;
-    text-align: center;
+  body {
+    padding: 10px;
   }
-
-  .logo {
-    font-size: 1.5rem;
-    text-align: center;
+  ul.posts-list li {
+    padding: 12px 14px;
   }
-
-  .drop-zone {
-    padding: 20px 10px;
-    font-size: 0.9rem;
-  }
-
-  .navbar-right a {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-  }
-
-  .comment-form textarea {
-    font-size: 1rem;
-    width: 100%;
-  }
-
-  .likButton, .com, .delButton {
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  ul li {
-    padding: 16px;
-  }
+  
 }
