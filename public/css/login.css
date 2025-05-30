@@ -3,11 +3,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #f4f4f4;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
+  background-color: black;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@ body {
 .logo{
   font-family: 'Pacifico', cursive;
   font-size: 1.8rem;
-  color: black;
+  color: white;
   margin-bottom: 20px;
 }
 
@@ -43,7 +44,7 @@ li {
 
 /* Form styling */
 form {
-  background: #fff;
+  background: black;
   padding: 25px 30px;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -55,6 +56,7 @@ form label {
   display: block;
   margin-bottom: 15px;
   font-weight: 500;
+  
 }
 
 input[type="text"],
@@ -62,6 +64,7 @@ input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-top: 6px;
+  background-color: black;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;

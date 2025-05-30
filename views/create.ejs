@@ -22,18 +22,18 @@
 
   <form action="/posts" method="POST" enctype="multipart/form-data">
     <label for="title">Enter Title</label>
-    <input type="text" name="title" required />
+    <input type="text" name="title" class="title " required />
 
     <label for="caption">Enter Caption</label>
-    <input type="text" name="caption" />
+    <input type="text" name="caption" class="caption"/>
 
     <label for="hash">Enter Hashtags</label>
-    <input type="text" name="hash" />
+    <input type="text" name="hash" class="hash"/>
 
     <div class="drop-zone" id="dropZone">Drag & Drop Image here Or Click to Upload</div>
     <input type="file" name="image" id="imageInput" hidden />
 
-    <button type="submit">Post</button>
+    <button type="submit" class="post">Post</button>
   </form>
 
   <script>

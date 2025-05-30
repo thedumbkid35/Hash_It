@@ -3,11 +3,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: white;
+  
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fafafa;
+
   color: #333;
   line-height: 1.6;
   padding: 20px;
@@ -16,7 +18,7 @@ body {
 }
 
 /* Form styling */
-form {
+form .log{
   background: #fff;
   padding: 20px;
   margin-bottom: 30px;
@@ -53,7 +55,7 @@ form input[type="file"]:focus {
 
 /* Submit button */
 form input[type="submit"],
-button {
+.login button {
   cursor: pointer;
   background-color: #007bff;
   color: white;
@@ -85,32 +87,77 @@ button:hover {
 }
 
 .drop-zone.dragover {
-  background-color: #e9f0ff;
-  border-color: #007bff;
-  color: #0056b3;
+  background-color:black;
+  border-color: black;
+  color: black;
+
 }
 
 .likButtonB{
   display: contents;
 }
 
-.delButton{
+.post{
+  margin-top: 30px;
+  padding: 10px;
+  border-style: none;
+  border-radius: 15%;
+  background-color: black;
+  transition: background-color 0.3s ease;
+  font-size: medium;
+}
+
+.post:hover {
+  border-style: 1px solid white;
   background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.delButton{
+  background-color: black;
+  border-style: none;
+  color: white;
 }
 .delButtonB{
   display: contents;
-  
+}
 
+span{
+  display: contents;
+  border-style: none;
+  width: 40px;
+  height: 20px;
 }
 .likButton {
-  background-color: rgb(201, 7, 7);
+  background-color: black;
+  border-style: none;
+  color: white;
 }
 
 .likButton:hover {
-  background-color: rgb(168, 5, 5);
+  background-color: black;
+  cursor: pointer;
 }
 /* Posts listing */
 
+.delButton:hover {
+  background-color: black;
+  cursor: pointer;
+  
+}
+
+.com{
+  padding: 10px;
+  border-radius: 10%;
+  border-style: none;
+  background-color: black;
+}
+
+.com:hover{
+  background-color: black;
+  cursor: pointer;
+}
 ul {
   display: flex;
   flex-direction: column;
@@ -122,13 +169,31 @@ ul {
 ul li {
   width: 100%;
   max-width: 700px;
-  background: #fff;
+  background: black;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+textarea{
+  background-color: black;
+  color: white;
+  border-style: none;
+  border-radius: 10%;
+}
+
+.title{
+  background-color: black;
+}
+
+.hash{
+  background-color: black;
+}
+
+.caption{
+  background-color: black;
+}
 /* Buttons inside posts */
 
 /* Responsive */

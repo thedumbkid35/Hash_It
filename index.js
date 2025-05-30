@@ -14,7 +14,7 @@ import User from "./models/User.js";
 import Comment from "./models/Comment.js";
 
 const app = express();
-const port = 3000 || process.env.port;
+const port = 3000
 
 // --- MongoDB connection ---
 mongoose.connect("mongodb+srv://suvanbalasubramaniam:Password35@cluster0.j4pc6yb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
@@ -30,6 +30,7 @@ mongoose.connect("mongodb+srv://suvanbalasubramaniam:Password35@cluster0.j4pc6yb
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(express.json()); // <-- Add this
 app.set("view engine", "ejs");
 
 // Session & flash
@@ -170,12 +171,12 @@ app.post("/posts", ensureAuthenticated, upload.single("image"), async (req, res)
   res.redirect("/posts");
 });
 
-app.post("/posts/:id/comments", ensureAuthenticated, async (req, res) => {
+app.post("/posts/:id/comments", ensureAuthenticated, upload.none(), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
       req.flash("error", "Post not found.");
-      return res.redirect("/posts");
+      return res.json({ success: true });
     }
 
     const comment = new Comment({
