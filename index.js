@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import multer from "multer";
-import path from "path";
 import session from "express-session";
 import passport from "passport";
 import LocalStrategy from "passport-local";
@@ -13,6 +12,8 @@ import MongoStore from "connect-mongo";
 import Post from "./models/Post.js";
 import User from "./models/User.js";
 import Comment from "./models/Comment.js";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log("✅ Connected to
 
 // Middlewares
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
 app.set("view engine", "ejs");
@@ -66,11 +67,22 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Multer for uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/uploads'),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
+// Cloudinary Config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "blog_uploads",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 800, crop: "limit" }]
+  }
+});
+
 const upload = multer({ storage });
 
 // Middleware to protect routes
@@ -126,11 +138,15 @@ app.get("/logout", (req, res) => {
 app.get("/posts", ensureAuthenticated, async (req, res) => {
   const posts = await Post.find()
     .populate("author", "username")
-    .populate({ path: "comments", populate: { path: "author", select: "username" } })
+    .populate({
+      path: "comments",
+      populate: { path: "author", select: "username" }
+    })
     .sort({ createdAt: -1 });
 
   res.render("posts", { posts, user: req.user });
 });
+
 
 // Create Post
 app.get("/posts/new", ensureAuthenticated, (req, res) => {
@@ -139,7 +155,7 @@ app.get("/posts/new", ensureAuthenticated, (req, res) => {
 
 app.post("/posts", ensureAuthenticated, upload.single("image"), async (req, res) => {
   const { title, caption, hash } = req.body;
-  const imagePath = req.file ? "/uploads/" + req.file.filename : null;
+  const imagePath = req.file ? req.file.path : null;
 
   const newPost = new Post({
     title,
@@ -173,6 +189,7 @@ app.post("/posts/:id/like", ensureAuthenticated, async (req, res) => {
 
 // Add Comment
 app.post("/posts/:id/comments", ensureAuthenticated, async (req, res) => {
+  console.log(req.body);
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).send("Post not found");
@@ -187,12 +204,13 @@ app.post("/posts/:id/comments", ensureAuthenticated, async (req, res) => {
     post.comments.push(comment._id);
     await post.save();
 
-    res.redirect("/posts");
+    res.redirect("/posts#" + post._id); // Better UX
   } catch (err) {
     console.error("Comment error:", err);
     res.status(500).send("Comment failed");
   }
 });
+
 
 // Delete Post
 app.delete("/posts/:id", ensureAuthenticated, async (req, res) => {

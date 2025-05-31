@@ -80,30 +80,7 @@ delete
     });
 
     // --- Comment Form ---
-    document.querySelectorAll(".comment-form").forEach(form => {
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const action = form.action;
-        const formData = new FormData(form);
-
-        try {
-          const response = await fetch(action, {
-            method: "POST",
-            body: formData
-          });
-
-          if (response.ok) {
-            // You could append the comment dynamically here instead of reloading
-            location.reload();
-          } else {
-            console.error("Comment failed");
-          }
-        } catch (err) {
-          console.error("Comment error:", err);
-        }
-      });
-    });
-
+    
     // --- Delete Post ---
     document.querySelectorAll(".delButtonB").forEach(form => {
       form.addEventListener("submit", async (event) => {
