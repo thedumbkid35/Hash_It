@@ -14,8 +14,9 @@
            <%  posts.forEach((post) => { %>
 
               <li><p><strong><%= post.author ? post.author.username : 'Unknown' %></strong></p>
+                <br />
                 <% if (post.image) { %>
-            <img src = "<%=post.image %>" alt = "Post Image" height="200" width="350"/>  
+            <img src = "<%=post.image %>" alt = "Post Image" class="post-image"/>  
         <% } %>
                 <h1><%= post.title %></h1>
 
@@ -33,7 +34,7 @@ favorite
 delete
 </span></button>
         </form>
-        <!-- Display Comments -->
+        
     <% if (post.comments && post.comments.length > 0) { %>
       <div class="comments-section">
         <h4>Comments:</h4>
@@ -48,7 +49,7 @@ delete
       </div>
     <% } %>
 
-    <!-- Add Comment Form -->
+   
     <form action="/posts/<%= post._id %>/comments" method="POST" class="comment-form">
       <textarea name="content" rows="2" placeholder="Write a comment..." required></textarea>
       <button type="submit" class="com">Comment</button>
@@ -61,10 +62,10 @@ delete
     <% } else { %>
         <h1>No posts yet</h1>
     <% } %>
-    <!-- Button to go to create page -->
+   
      <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // --- Like Button ---
+  
     document.querySelectorAll(".likButtonB").forEach(form => {
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -79,9 +80,9 @@ delete
       });
     });
 
-    // --- Comment Form ---
+   
     
-    // --- Delete Post ---
+    
     document.querySelectorAll(".delButtonB").forEach(form => {
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -89,15 +90,15 @@ delete
 
         try {
           const response = await fetch(action, {
-            method: "POST", // method-override converts this to DELETE
+            method: "POST", 
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: "_method=DELETE" // method-override expects this in body
+            body: "_method=DELETE" 
           });
 
           if (response.ok) {
-            location.reload(); // or remove the post DOM element
+            location.reload(); 
           } else {
             console.error("Delete failed");
           }

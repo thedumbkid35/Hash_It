@@ -1,4 +1,4 @@
-/* Reset & base */
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@ body {
   margin: 0 auto;
 }
 
-/* Form styling */
+
 form .log{
   background: #fff;
   padding: 20px;
@@ -53,7 +53,7 @@ form input[type="file"]:focus {
   outline: none;
 }
 
-/* Submit button */
+
 form input[type="submit"],
 .login button {
   cursor: pointer;
@@ -73,7 +73,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Drop zone */
+
 .drop-zone {
   border: 2px dashed #bbb;
   border-radius: 6px;
@@ -139,7 +139,7 @@ span{
   background-color: black;
   cursor: pointer;
 }
-/* Posts listing */
+
 
 .delButton:hover {
   background-color: black;
@@ -194,9 +194,7 @@ textarea{
 .caption{
   background-color: black;
 }
-/* Buttons inside posts */
 
-/* Responsive */
 @media (max-width: 600px) {
   body {
     padding: 10px;
@@ -206,3 +204,14 @@ textarea{
   }
   
 }
+
+.post-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin-bottom: 1rem;
+}
+

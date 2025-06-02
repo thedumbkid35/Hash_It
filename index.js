@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import multer from "multer";
 import session from "express-session";
@@ -20,18 +19,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI).then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB Error:", err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB Error:", err));
 
-// Middlewares
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
 app.set("view engine", "ejs");
 
-// Session & Flash
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -41,7 +38,6 @@ app.use(session({
 
 app.use(flash());
 
-// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -67,7 +63,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Cloudinary Config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -85,16 +80,13 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-// Middleware to protect routes
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect("/login");
 }
 
-// Routes
 app.get("/", (req, res) => res.redirect("/posts"));
 
-// Signup
 app.get("/signup", (req, res) => res.render("signup", { messages: req.flash("error") }));
 
 app.post("/signup", async (req, res) => {
@@ -112,13 +104,11 @@ app.post("/signup", async (req, res) => {
       res.redirect("/posts");
     });
   } catch (err) {
-    console.error(err);
     req.flash("error", "Signup failed.");
     res.redirect("/signup");
   }
 });
 
-// Login
 app.get("/login", (req, res) => res.render("login", { messages: req.flash("error") }));
 
 app.post("/login",
@@ -129,12 +119,10 @@ app.post("/login",
   })
 );
 
-// Logout
 app.get("/logout", (req, res) => {
   req.logout(() => res.redirect("/login"));
 });
 
-// Posts Page
 app.get("/posts", ensureAuthenticated, async (req, res) => {
   const posts = await Post.find()
     .populate("author", "username")
@@ -147,8 +135,6 @@ app.get("/posts", ensureAuthenticated, async (req, res) => {
   res.render("posts", { posts, user: req.user });
 });
 
-
-// Create Post
 app.get("/posts/new", ensureAuthenticated, (req, res) => {
   res.render("create");
 });
@@ -169,7 +155,6 @@ app.post("/posts", ensureAuthenticated, upload.single("image"), async (req, res)
   res.redirect("/posts");
 });
 
-// Like/Unlike Post
 app.post("/posts/:id/like", ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -182,14 +167,11 @@ app.post("/posts/:id/like", ensureAuthenticated, async (req, res) => {
     await post.save();
     res.redirect("/posts");
   } catch (err) {
-    console.error("Like error:", err);
     res.status(500).send("Like failed");
   }
 });
 
-// Add Comment
 app.post("/posts/:id/comments", ensureAuthenticated, async (req, res) => {
-  console.log(req.body);
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).send("Post not found");
@@ -204,15 +186,12 @@ app.post("/posts/:id/comments", ensureAuthenticated, async (req, res) => {
     post.comments.push(comment._id);
     await post.save();
 
-    res.redirect("/posts#" + post._id); // Better UX
+    res.redirect("/posts#" + post._id);
   } catch (err) {
-    console.error("Comment error:", err);
     res.status(500).send("Comment failed");
   }
 });
 
-
-// Delete Post
 app.delete("/posts/:id", ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -225,12 +204,10 @@ app.delete("/posts/:id", ensureAuthenticated, async (req, res) => {
     await Post.findByIdAndDelete(req.params.id);
     res.redirect("/posts");
   } catch (err) {
-    console.error("Delete error:", err);
     res.status(500).send("Delete failed");
   }
 });
 
-// Start server
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });

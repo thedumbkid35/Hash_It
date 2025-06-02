@@ -1,4 +1,4 @@
-/* Reset & base styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@ body {
   padding: 60px 20px;
 }
 
-/* Logo */
+
 .logo{
   font-family: 'Pacifico', cursive;
   font-size: 1.8rem;
@@ -24,13 +24,13 @@ body {
   margin-bottom: 20px;
 }
 
-/* Header */
+
 h1 {
   margin-bottom: 20px;
   font-size: 1.8rem;
 }
 
-/* Error messages */
+
 ul {
   list-style: none;
   margin-bottom: 20px;
@@ -42,7 +42,7 @@ li {
   margin: 4px 0;
 }
 
-/* Form styling */
+
 form {
   background: black;
   padding: 25px 30px;
@@ -87,7 +87,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Signup link */
+
 p {
   margin-top: 20px;
   font-size: 0.95rem;
@@ -96,6 +96,7 @@ p {
 a {
   color: #007bff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {

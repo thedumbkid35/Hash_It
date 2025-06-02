@@ -1,4 +1,4 @@
-/* Navbar container */
+
 body{
   background-color: black;
 }
@@ -14,7 +14,7 @@ body{
   border-bottom: 1px solid lightgray;
 }
 
-/* Logo styling */
+
 .logo {
   font-family: 'Pacifico', cursive;
   font-size: 1.8rem;
@@ -26,7 +26,7 @@ body{
     display: flex;
     justify-content: space-around;
 }
-/* Navigation links container */
+
 .navbar-right a {
   text-decoration: none;
   color: white;
@@ -34,6 +34,7 @@ body{
   font-weight: 500;
   transition: color 0.3s ease;
   padding: 10px;
+  cursor: pointer;
 }
 
 .navbar-right a:hover {
@@ -43,3 +44,4 @@ body{
   border-radius: 15%;
   transition: 0.1s;
 }
+
